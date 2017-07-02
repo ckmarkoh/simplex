@@ -11,8 +11,7 @@ def x_to_xbn(x, bv, nbv, axis=0):
 def xbn_to_x(xbn, bv, nbv):
     pre_index_order = [x for x in enumerate(bv + nbv)]
     index_order = sorted(pre_index_order, key=lambda x: x[1])
-    after_index_order = [x[0] for x in index_order]
-    return xbn[after_index_order]
+    return xbn[[x[0] for x in index_order]]
 
 
 def combination(a, m):
