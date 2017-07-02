@@ -1,11 +1,8 @@
 import numpy as np
 
 
-def x_to_xbn(x, bv, nbv, axis=0):
-    if axis == 1:
-        return np.concatenate([x[:, bv], x[:, nbv]], axis=1)
-    else:
-        return np.concatenate([x[bv], x[nbv]], axis=0)
+def x_to_xbn(x, bv, nbv):
+    return np.concatenate([x[bv], x[nbv]], axis=0)
 
 
 def xbn_to_x(xbn, bv, nbv):
@@ -29,7 +26,7 @@ def combination(a, m):
 def update_x(A, c, x, bv):
     m, n = A.shape[0], A.shape[1]
     nbv = filter(lambda x: x not in bv, range(n))
-    M = np.concatenate([x_to_xbn(A, bv, nbv, axis=1),
+    M = np.concatenate([np.concatenate([A[:, bv], A[:, nbv]], axis=1),
                         np.concatenate([np.zeros((m, n - m)), np.eye(n - m)], axis=1)],
                        axis=0)
     M_inv = np.linalg.inv(M)
